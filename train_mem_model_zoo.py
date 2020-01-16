@@ -38,15 +38,15 @@ if __name__ == "__main__":
     set_core_number(core_num)
 
     # create train data
-    # train_x, dev_x, test_x, train_y, dev_y, test_y, train_m, dev_m, test_m, test_dt = \
-    #     load_agg_selected_data_mem_train(data_path=config.data_path,
-    #                                x_len=config.x_len,
-    #                                y_len=config.y_len,
-    #                                foresight=config.foresight,
-    #                                cell_ids=config.train_cell_ids,
-    #                                dev_ratio=config.dev_ratio,
-    #                                test_len=config.test_len,
-    #                                seed=config.seed)
+    train_x, dev_x, test_x, train_y, dev_y, test_y, train_m, dev_m, test_m, test_dt = \
+        load_agg_selected_data_mem_train(data_path=config.data_path,
+                                   x_len=config.x_len,
+                                   y_len=config.y_len,
+                                   foresight=config.foresight,
+                                   cell_ids=config.train_cell_ids,
+                                   dev_ratio=config.dev_ratio,
+                                   test_len=config.test_len,
+                                   seed=config.seed)
 
     # config.batch_size is useless as we force get_datasets_from_dir return the entire data
     # train_X, train_Y, train_M, valid_X, valid_Y, valid_M, _, _, _ =\
@@ -60,11 +60,11 @@ if __name__ == "__main__":
     #
     # model = Model(config, dataset.tensors[0], dataset.tensors[1], dataset.tensors[2])
 
-    train_rdd, val_rdd, test_rdd = \
-        get_datasets_from_dir_spark(sc, config.data_path, config.batch_size,
-                                    train_cells=config.num_cells_train,
-                                    valid_cells=config.num_cells_valid,
-                                    test_cells=config.num_cells_test)
+    # train_rdd, val_rdd, test_rdd = \
+    #     get_datasets_from_dir_spark(sc, config.data_path, config.batch_size,
+    #                                 train_cells=config.num_cells_train,
+    #                                 valid_cells=config.num_cells_valid,
+    #                                 test_cells=config.num_cells_test)
 
     dataset = TFDataset.from_rdd(train_rdd,
                                  features=[(tf.float32, [10, 8]), (tf.float32, [77, 8])],
